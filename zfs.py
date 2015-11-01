@@ -65,7 +65,8 @@ class ZFS(Operations):
         #st = os.lstat(full_path)
         #return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
 
-        zfs_pb2.FileStat =  self.stub.getattr(zfs_pb2.Create(path=full_path, mode=0), 10)
+        fs = self.stub.GetFileStat(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+
         # create diccrt FileStat.st_
 
     def open(self, path, flags):

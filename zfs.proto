@@ -35,6 +35,7 @@ service ZfsRpc {
 
 }
 
+/*
 message FileStat {
     int32  st_mode = 3;     /* protection */
     int32  st_nlink = 4;    /* number of hard links */
@@ -44,6 +45,11 @@ message FileStat {
     int32  st_atime = 11;    /* time of last access */
     int32  st_mtime = 12;    /* time of last modification */
     int32  st_ctime = 13;    /* time of last change */
+}*/
+
+message FileStat {
+    string  key = 3;     /* protection */
+    int32  value = 4;    /* number of hard links */
 }
 
 message FilePath {
