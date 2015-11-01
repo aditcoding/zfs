@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option objc_class_prefix = "HLW";
+
+package zfs;
+
+service ZfsRpc {
+  rpc create(Create) returns (IntRet) {}
+  rpc getattr(Create) returns (Mystat) {}
+  rpc mkdir(Create) returns (IntRet) {}
+  rpc rmdir(Create) returns (IntRet) {}
+  rpc read(Create) returns (IntRet) {}
+  rpc write(Create) returns (IntRet) {}
+  rpc open(Create) returns (IntRet) {}
+  rpc flush(Create) returns (IntRet) {}
+  rpc release(Create) returns (IntRet) {}
+  rpc unlink(Create) returns (IntRet) {}
+  rpc readdir(Create) returns (StringArr) {}
+  rpc fsync(Create) returns (IntRet) {}
+}
+
+message Create {
+  string path = 1;
+  int32 mode = 2;
+}
+
+message IntRet {
+  int32 message = 1;
+}
+
+message StringArr {
+  repeated string data = 1;
+}
+
+message Mystat {
+    int32  st_mode = 3;     /* protection */
+    int32  st_nlink = 4;    /* number of hard links */
+    int32  st_uid = 5;      /* user ID of owner */
+    int32  st_gid = 6;      /* group ID of owner */
+    int32  st_size = 8;     /* total size, in bytes */
+    int32  st_atime = 11;    /* time of last access */
+    int32  st_mtime = 12;    /* time of last modification */
+    int32  st_ctime = 13;    /* time of last change */
+}
