@@ -17,171 +17,71 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='zfs.proto',
   package='zfs',
   syntax='proto3',
-  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"$\n\x06\x43reate\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"\x19\n\x06IntRet\x12\x0f\n\x07message\x18\x01 \x01(\x05\"\x19\n\tStringArr\x12\x0c\n\x04\x64\x61ta\x18\x01 \x03(\t\"\x92\x01\n\x06Mystat\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x05\x12\x10\n\x08st_mtime\x18\x0c \x01(\x05\x12\x10\n\x08st_ctime\x18\r \x01(\x05\x32\xcd\x03\n\x06ZfsRpc\x12$\n\x06\x63reate\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12%\n\x07getattr\x12\x0b.zfs.Create\x1a\x0b.zfs.Mystat\"\x00\x12#\n\x05mkdir\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12#\n\x05rmdir\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12\"\n\x04read\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12#\n\x05write\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12\"\n\x04open\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12#\n\x05\x66lush\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12%\n\x07release\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12$\n\x06unlink\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x12(\n\x07readdir\x12\x0b.zfs.Create\x1a\x0e.zfs.StringArr\"\x00\x12#\n\x05\x66sync\x12\x0b.zfs.Create\x1a\x0b.zfs.IntRet\"\x00\x42\x06\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"\x94\x01\n\x08\x46ileStat\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x05\x12\x10\n\x08st_mtime\x18\x0c \x01(\x05\x12\x10\n\x08st_ctime\x18\r \x01(\x05\"&\n\x08\x46ilePath\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"1\n\x08StdReply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"5\n\x0fTestAuthRequest\x12\x10\n\x08\x66ilepath\x18\x01 \x01(\t\x12\x10\n\x08st_mtime\x18\x02 \x01(\x05\"\x1d\n\rTestAuthReply\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"#\n\rFileDataBlock\x12\x12\n\ndata_block\x18\x01 \x01(\t\"&\n\x0c\x44irListBlock\x12\x16\n\x0e\x64ir_list_block\x18\x01 \x01(\t2\xb6\x03\n\x06ZfsRpc\x12-\n\x0bGetFileStat\x12\r.zfs.FilePath\x1a\r.zfs.FileStat\"\x00\x12\x36\n\x08TestAuth\x12\x14.zfs.TestAuthRequest\x1a\x12.zfs.TestAuthReply\"\x00\x12.\n\x05\x46\x65tch\x12\r.zfs.FilePath\x1a\x12.zfs.FileDataBlock\"\x00\x30\x01\x12.\n\x05Store\x12\x12.zfs.FileDataBlock\x1a\r.zfs.StdReply\"\x00(\x01\x12-\n\x0bSetFileStat\x12\r.zfs.FileStat\x1a\r.zfs.StdReply\"\x00\x12,\n\nRemoveFile\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12)\n\x07MakeDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12+\n\tRemoveDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12\x30\n\x08\x46\x65tchDir\x12\r.zfs.FilePath\x1a\x11.zfs.DirListBlock\"\x00\x30\x01\x42\x06\xa2\x02\x03HLWb\x06proto3'
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
 
-_CREATE = _descriptor.Descriptor(
-  name='Create',
-  full_name='zfs.Create',
+_FILESTAT = _descriptor.Descriptor(
+  name='FileStat',
+  full_name='zfs.FileStat',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='path', full_name='zfs.Create.path', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='mode', full_name='zfs.Create.mode', index=1,
-      number=2, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=18,
-  serialized_end=54,
-)
-
-
-_INTRET = _descriptor.Descriptor(
-  name='IntRet',
-  full_name='zfs.IntRet',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='message', full_name='zfs.IntRet.message', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=56,
-  serialized_end=81,
-)
-
-
-_STRINGARR = _descriptor.Descriptor(
-  name='StringArr',
-  full_name='zfs.StringArr',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='data', full_name='zfs.StringArr.data', index=0,
-      number=1, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=83,
-  serialized_end=108,
-)
-
-
-_MYSTAT = _descriptor.Descriptor(
-  name='Mystat',
-  full_name='zfs.Mystat',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='st_mode', full_name='zfs.Mystat.st_mode', index=0,
+      name='st_mode', full_name='zfs.FileStat.st_mode', index=0,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_nlink', full_name='zfs.Mystat.st_nlink', index=1,
+      name='st_nlink', full_name='zfs.FileStat.st_nlink', index=1,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_uid', full_name='zfs.Mystat.st_uid', index=2,
+      name='st_uid', full_name='zfs.FileStat.st_uid', index=2,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_gid', full_name='zfs.Mystat.st_gid', index=3,
+      name='st_gid', full_name='zfs.FileStat.st_gid', index=3,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_size', full_name='zfs.Mystat.st_size', index=4,
+      name='st_size', full_name='zfs.FileStat.st_size', index=4,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_atime', full_name='zfs.Mystat.st_atime', index=5,
+      name='st_atime', full_name='zfs.FileStat.st_atime', index=5,
       number=11, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_mtime', full_name='zfs.Mystat.st_mtime', index=6,
+      name='st_mtime', full_name='zfs.FileStat.st_mtime', index=6,
       number=12, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_ctime', full_name='zfs.Mystat.st_ctime', index=7,
+      name='st_ctime', full_name='zfs.FileStat.st_ctime', index=7,
       number=13, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -199,42 +99,273 @@ _MYSTAT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=111,
-  serialized_end=257,
+  serialized_start=19,
+  serialized_end=167,
 )
 
-DESCRIPTOR.message_types_by_name['Create'] = _CREATE
-DESCRIPTOR.message_types_by_name['IntRet'] = _INTRET
-DESCRIPTOR.message_types_by_name['StringArr'] = _STRINGARR
-DESCRIPTOR.message_types_by_name['Mystat'] = _MYSTAT
 
-Create = _reflection.GeneratedProtocolMessageType('Create', (_message.Message,), dict(
-  DESCRIPTOR = _CREATE,
-  __module__ = 'zfs_pb2'
-  # @@protoc_insertion_point(class_scope:zfs.Create)
-  ))
-_sym_db.RegisterMessage(Create)
+_FILEPATH = _descriptor.Descriptor(
+  name='FilePath',
+  full_name='zfs.FilePath',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='path', full_name='zfs.FilePath.path', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='mode', full_name='zfs.FilePath.mode', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=169,
+  serialized_end=207,
+)
 
-IntRet = _reflection.GeneratedProtocolMessageType('IntRet', (_message.Message,), dict(
-  DESCRIPTOR = _INTRET,
-  __module__ = 'zfs_pb2'
-  # @@protoc_insertion_point(class_scope:zfs.IntRet)
-  ))
-_sym_db.RegisterMessage(IntRet)
 
-StringArr = _reflection.GeneratedProtocolMessageType('StringArr', (_message.Message,), dict(
-  DESCRIPTOR = _STRINGARR,
-  __module__ = 'zfs_pb2'
-  # @@protoc_insertion_point(class_scope:zfs.StringArr)
-  ))
-_sym_db.RegisterMessage(StringArr)
+_STDREPLY = _descriptor.Descriptor(
+  name='StdReply',
+  full_name='zfs.StdReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='status', full_name='zfs.StdReply.status', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='error_message', full_name='zfs.StdReply.error_message', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=209,
+  serialized_end=258,
+)
 
-Mystat = _reflection.GeneratedProtocolMessageType('Mystat', (_message.Message,), dict(
-  DESCRIPTOR = _MYSTAT,
+
+_TESTAUTHREQUEST = _descriptor.Descriptor(
+  name='TestAuthRequest',
+  full_name='zfs.TestAuthRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='filepath', full_name='zfs.TestAuthRequest.filepath', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='st_mtime', full_name='zfs.TestAuthRequest.st_mtime', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=260,
+  serialized_end=313,
+)
+
+
+_TESTAUTHREPLY = _descriptor.Descriptor(
+  name='TestAuthReply',
+  full_name='zfs.TestAuthReply',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='flag', full_name='zfs.TestAuthReply.flag', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=315,
+  serialized_end=344,
+)
+
+
+_FILEDATABLOCK = _descriptor.Descriptor(
+  name='FileDataBlock',
+  full_name='zfs.FileDataBlock',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='data_block', full_name='zfs.FileDataBlock.data_block', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=346,
+  serialized_end=381,
+)
+
+
+_DIRLISTBLOCK = _descriptor.Descriptor(
+  name='DirListBlock',
+  full_name='zfs.DirListBlock',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='dir_list_block', full_name='zfs.DirListBlock.dir_list_block', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=383,
+  serialized_end=421,
+)
+
+DESCRIPTOR.message_types_by_name['FileStat'] = _FILESTAT
+DESCRIPTOR.message_types_by_name['FilePath'] = _FILEPATH
+DESCRIPTOR.message_types_by_name['StdReply'] = _STDREPLY
+DESCRIPTOR.message_types_by_name['TestAuthRequest'] = _TESTAUTHREQUEST
+DESCRIPTOR.message_types_by_name['TestAuthReply'] = _TESTAUTHREPLY
+DESCRIPTOR.message_types_by_name['FileDataBlock'] = _FILEDATABLOCK
+DESCRIPTOR.message_types_by_name['DirListBlock'] = _DIRLISTBLOCK
+
+FileStat = _reflection.GeneratedProtocolMessageType('FileStat', (_message.Message,), dict(
+  DESCRIPTOR = _FILESTAT,
   __module__ = 'zfs_pb2'
-  # @@protoc_insertion_point(class_scope:zfs.Mystat)
+  # @@protoc_insertion_point(class_scope:zfs.FileStat)
   ))
-_sym_db.RegisterMessage(Mystat)
+_sym_db.RegisterMessage(FileStat)
+
+FilePath = _reflection.GeneratedProtocolMessageType('FilePath', (_message.Message,), dict(
+  DESCRIPTOR = _FILEPATH,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.FilePath)
+  ))
+_sym_db.RegisterMessage(FilePath)
+
+StdReply = _reflection.GeneratedProtocolMessageType('StdReply', (_message.Message,), dict(
+  DESCRIPTOR = _STDREPLY,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.StdReply)
+  ))
+_sym_db.RegisterMessage(StdReply)
+
+TestAuthRequest = _reflection.GeneratedProtocolMessageType('TestAuthRequest', (_message.Message,), dict(
+  DESCRIPTOR = _TESTAUTHREQUEST,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.TestAuthRequest)
+  ))
+_sym_db.RegisterMessage(TestAuthRequest)
+
+TestAuthReply = _reflection.GeneratedProtocolMessageType('TestAuthReply', (_message.Message,), dict(
+  DESCRIPTOR = _TESTAUTHREPLY,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.TestAuthReply)
+  ))
+_sym_db.RegisterMessage(TestAuthReply)
+
+FileDataBlock = _reflection.GeneratedProtocolMessageType('FileDataBlock', (_message.Message,), dict(
+  DESCRIPTOR = _FILEDATABLOCK,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.FileDataBlock)
+  ))
+_sym_db.RegisterMessage(FileDataBlock)
+
+DirListBlock = _reflection.GeneratedProtocolMessageType('DirListBlock', (_message.Message,), dict(
+  DESCRIPTOR = _DIRLISTBLOCK,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.DirListBlock)
+  ))
+_sym_db.RegisterMessage(DirListBlock)
 
 
 DESCRIPTOR.has_options = True
@@ -249,40 +380,31 @@ class EarlyAdopterZfsRpcServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def create(self, request, context):
+  def GetFileStat(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def getattr(self, request, context):
+  def TestAuth(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def mkdir(self, request, context):
+  def Fetch(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def rmdir(self, request, context):
+  def Store(self, request_iterator, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def read(self, request, context):
+  def SetFileStat(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def write(self, request, context):
+  def RemoveFile(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def open(self, request, context):
+  def MakeDir(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def flush(self, request, context):
+  def RemoveDir(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def release(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def unlink(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def readdir(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def fsync(self, request, context):
+  def FetchDir(self, request, context):
     raise NotImplementedError()
 class EarlyAdopterZfsRpcServer(object):
   """<fill me in later!>"""
@@ -297,53 +419,41 @@ class EarlyAdopterZfsRpcStub(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def create(self, request):
+  def GetFileStat(self, request):
     raise NotImplementedError()
-  create.async = None
+  GetFileStat.async = None
   @abc.abstractmethod
-  def getattr(self, request):
+  def TestAuth(self, request):
     raise NotImplementedError()
-  getattr.async = None
+  TestAuth.async = None
   @abc.abstractmethod
-  def mkdir(self, request):
+  def Fetch(self, request):
     raise NotImplementedError()
-  mkdir.async = None
+  Fetch.async = None
   @abc.abstractmethod
-  def rmdir(self, request):
+  def Store(self, request_iterator):
     raise NotImplementedError()
-  rmdir.async = None
+  Store.async = None
   @abc.abstractmethod
-  def read(self, request):
+  def SetFileStat(self, request):
     raise NotImplementedError()
-  read.async = None
+  SetFileStat.async = None
   @abc.abstractmethod
-  def write(self, request):
+  def RemoveFile(self, request):
     raise NotImplementedError()
-  write.async = None
+  RemoveFile.async = None
   @abc.abstractmethod
-  def open(self, request):
+  def MakeDir(self, request):
     raise NotImplementedError()
-  open.async = None
+  MakeDir.async = None
   @abc.abstractmethod
-  def flush(self, request):
+  def RemoveDir(self, request):
     raise NotImplementedError()
-  flush.async = None
+  RemoveDir.async = None
   @abc.abstractmethod
-  def release(self, request):
+  def FetchDir(self, request):
     raise NotImplementedError()
-  release.async = None
-  @abc.abstractmethod
-  def unlink(self, request):
-    raise NotImplementedError()
-  unlink.async = None
-  @abc.abstractmethod
-  def readdir(self, request):
-    raise NotImplementedError()
-  readdir.async = None
-  @abc.abstractmethod
-  def fsync(self, request):
-    raise NotImplementedError()
-  fsync.async = None
+  FetchDir.async = None
 def early_adopter_create_ZfsRpc_server(servicer, port, private_key=None, certificate_chain=None):
   import zfs_pb2
   import zfs_pb2
@@ -363,72 +473,51 @@ def early_adopter_create_ZfsRpc_server(servicer, port, private_key=None, certifi
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
   method_service_descriptions = {
-    "create": alpha_utilities.unary_unary_service_description(
-      servicer.create,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "Fetch": alpha_utilities.unary_stream_service_description(
+      servicer.Fetch,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.FileDataBlock.SerializeToString,
     ),
-    "flush": alpha_utilities.unary_unary_service_description(
-      servicer.flush,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "FetchDir": alpha_utilities.unary_stream_service_description(
+      servicer.FetchDir,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.DirListBlock.SerializeToString,
     ),
-    "fsync": alpha_utilities.unary_unary_service_description(
-      servicer.fsync,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "GetFileStat": alpha_utilities.unary_unary_service_description(
+      servicer.GetFileStat,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.FileStat.SerializeToString,
     ),
-    "getattr": alpha_utilities.unary_unary_service_description(
-      servicer.getattr,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.Mystat.SerializeToString,
+    "MakeDir": alpha_utilities.unary_unary_service_description(
+      servicer.MakeDir,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.StdReply.SerializeToString,
     ),
-    "mkdir": alpha_utilities.unary_unary_service_description(
-      servicer.mkdir,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "RemoveDir": alpha_utilities.unary_unary_service_description(
+      servicer.RemoveDir,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.StdReply.SerializeToString,
     ),
-    "open": alpha_utilities.unary_unary_service_description(
-      servicer.open,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "RemoveFile": alpha_utilities.unary_unary_service_description(
+      servicer.RemoveFile,
+      zfs_pb2.FilePath.FromString,
+      zfs_pb2.StdReply.SerializeToString,
     ),
-    "read": alpha_utilities.unary_unary_service_description(
-      servicer.read,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "SetFileStat": alpha_utilities.unary_unary_service_description(
+      servicer.SetFileStat,
+      zfs_pb2.FileStat.FromString,
+      zfs_pb2.StdReply.SerializeToString,
     ),
-    "readdir": alpha_utilities.unary_unary_service_description(
-      servicer.readdir,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.StringArr.SerializeToString,
+    "Store": alpha_utilities.stream_unary_service_description(
+      servicer.Store,
+      zfs_pb2.FileDataBlock.FromString,
+      zfs_pb2.StdReply.SerializeToString,
     ),
-    "release": alpha_utilities.unary_unary_service_description(
-      servicer.release,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
-    ),
-    "rmdir": alpha_utilities.unary_unary_service_description(
-      servicer.rmdir,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
-    ),
-    "unlink": alpha_utilities.unary_unary_service_description(
-      servicer.unlink,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
-    ),
-    "write": alpha_utilities.unary_unary_service_description(
-      servicer.write,
-      zfs_pb2.Create.FromString,
-      zfs_pb2.IntRet.SerializeToString,
+    "TestAuth": alpha_utilities.unary_unary_service_description(
+      servicer.TestAuth,
+      zfs_pb2.TestAuthRequest.FromString,
+      zfs_pb2.TestAuthReply.SerializeToString,
     ),
   }
   return early_adopter_implementations.server("zfs.ZfsRpc", method_service_descriptions, port, private_key=private_key, certificate_chain=certificate_chain)
@@ -451,60 +540,42 @@ def early_adopter_create_ZfsRpc_stub(host, port, metadata_transformer=None, secu
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
   method_invocation_descriptions = {
-    "create": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "Fetch": alpha_utilities.unary_stream_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.FileDataBlock.FromString,
     ),
-    "flush": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "FetchDir": alpha_utilities.unary_stream_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.DirListBlock.FromString,
     ),
-    "fsync": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "GetFileStat": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.FileStat.FromString,
     ),
-    "getattr": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.Mystat.FromString,
+    "MakeDir": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.StdReply.FromString,
     ),
-    "mkdir": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "RemoveDir": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.StdReply.FromString,
     ),
-    "open": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "RemoveFile": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.StdReply.FromString,
     ),
-    "read": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "SetFileStat": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.FileStat.SerializeToString,
+      zfs_pb2.StdReply.FromString,
     ),
-    "readdir": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.StringArr.FromString,
+    "Store": alpha_utilities.stream_unary_invocation_description(
+      zfs_pb2.FileDataBlock.SerializeToString,
+      zfs_pb2.StdReply.FromString,
     ),
-    "release": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
-    ),
-    "rmdir": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
-    ),
-    "unlink": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
-    ),
-    "write": alpha_utilities.unary_unary_invocation_description(
-      zfs_pb2.Create.SerializeToString,
-      zfs_pb2.IntRet.FromString,
+    "TestAuth": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.TestAuthRequest.SerializeToString,
+      zfs_pb2.TestAuthReply.FromString,
     ),
   }
   return early_adopter_implementations.stub("zfs.ZfsRpc", method_invocation_descriptions, host, port, metadata_transformer=metadata_transformer, secure=secure, root_certificates=root_certificates, private_key=private_key, certificate_chain=certificate_chain, server_host_override=server_host_override)
@@ -513,93 +584,70 @@ class BetaZfsRpcServicer(object):
   """<fill me in later!>"""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def create(self, request, context):
+  def GetFileStat(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def getattr(self, request, context):
+  def TestAuth(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def mkdir(self, request, context):
+  def Fetch(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def rmdir(self, request, context):
+  def Store(self, request_iterator, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def read(self, request, context):
+  def SetFileStat(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def write(self, request, context):
+  def RemoveFile(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def open(self, request, context):
+  def MakeDir(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def flush(self, request, context):
+  def RemoveDir(self, request, context):
     raise NotImplementedError()
   @abc.abstractmethod
-  def release(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def unlink(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def readdir(self, request, context):
-    raise NotImplementedError()
-  @abc.abstractmethod
-  def fsync(self, request, context):
+  def FetchDir(self, request, context):
     raise NotImplementedError()
 
 class BetaZfsRpcStub(object):
   """The interface to which stubs will conform."""
   __metaclass__ = abc.ABCMeta
   @abc.abstractmethod
-  def create(self, request, timeout):
+  def GetFileStat(self, request, timeout):
     raise NotImplementedError()
-  create.future = None
+  GetFileStat.future = None
   @abc.abstractmethod
-  def getattr(self, request, timeout):
+  def TestAuth(self, request, timeout):
     raise NotImplementedError()
-  getattr.future = None
+  TestAuth.future = None
   @abc.abstractmethod
-  def mkdir(self, request, timeout):
+  def Fetch(self, request, timeout):
     raise NotImplementedError()
-  mkdir.future = None
   @abc.abstractmethod
-  def rmdir(self, request, timeout):
+  def Store(self, request_iterator, timeout):
     raise NotImplementedError()
-  rmdir.future = None
+  Store.future = None
   @abc.abstractmethod
-  def read(self, request, timeout):
+  def SetFileStat(self, request, timeout):
     raise NotImplementedError()
-  read.future = None
+  SetFileStat.future = None
   @abc.abstractmethod
-  def write(self, request, timeout):
+  def RemoveFile(self, request, timeout):
     raise NotImplementedError()
-  write.future = None
+  RemoveFile.future = None
   @abc.abstractmethod
-  def open(self, request, timeout):
+  def MakeDir(self, request, timeout):
     raise NotImplementedError()
-  open.future = None
+  MakeDir.future = None
   @abc.abstractmethod
-  def flush(self, request, timeout):
+  def RemoveDir(self, request, timeout):
     raise NotImplementedError()
-  flush.future = None
+  RemoveDir.future = None
   @abc.abstractmethod
-  def release(self, request, timeout):
+  def FetchDir(self, request, timeout):
     raise NotImplementedError()
-  release.future = None
-  @abc.abstractmethod
-  def unlink(self, request, timeout):
-    raise NotImplementedError()
-  unlink.future = None
-  @abc.abstractmethod
-  def readdir(self, request, timeout):
-    raise NotImplementedError()
-  readdir.future = None
-  @abc.abstractmethod
-  def fsync(self, request, timeout):
-    raise NotImplementedError()
-  fsync.future = None
 
 def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   import zfs_pb2
@@ -620,53 +668,38 @@ def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeo
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
   request_deserializers = {
-    ('zfs.ZfsRpc', 'create'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'flush'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'fsync'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'getattr'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'mkdir'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'open'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'read'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'readdir'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'release'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'rmdir'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'unlink'): zfs_pb2.Create.FromString,
-    ('zfs.ZfsRpc', 'write'): zfs_pb2.Create.FromString,
+    ('zfs.ZfsRpc', 'Fetch'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'FetchDir'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'GetFileStat'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.FileStat.FromString,
+    ('zfs.ZfsRpc', 'Store'): zfs_pb2.FileDataBlock.FromString,
+    ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthRequest.FromString,
   }
   response_serializers = {
-    ('zfs.ZfsRpc', 'create'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'flush'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'fsync'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'getattr'): zfs_pb2.Mystat.SerializeToString,
-    ('zfs.ZfsRpc', 'mkdir'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'open'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'read'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'readdir'): zfs_pb2.StringArr.SerializeToString,
-    ('zfs.ZfsRpc', 'release'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'rmdir'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'unlink'): zfs_pb2.IntRet.SerializeToString,
-    ('zfs.ZfsRpc', 'write'): zfs_pb2.IntRet.SerializeToString,
+    ('zfs.ZfsRpc', 'Fetch'): zfs_pb2.FileDataBlock.SerializeToString,
+    ('zfs.ZfsRpc', 'FetchDir'): zfs_pb2.DirListBlock.SerializeToString,
+    ('zfs.ZfsRpc', 'GetFileStat'): zfs_pb2.FileStat.SerializeToString,
+    ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'Store'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthReply.SerializeToString,
   }
   method_implementations = {
-    ('zfs.ZfsRpc', 'create'): face_utilities.unary_unary_inline(servicer.create),
-    ('zfs.ZfsRpc', 'flush'): face_utilities.unary_unary_inline(servicer.flush),
-    ('zfs.ZfsRpc', 'fsync'): face_utilities.unary_unary_inline(servicer.fsync),
-    ('zfs.ZfsRpc', 'getattr'): face_utilities.unary_unary_inline(servicer.getattr),
-    ('zfs.ZfsRpc', 'mkdir'): face_utilities.unary_unary_inline(servicer.mkdir),
-    ('zfs.ZfsRpc', 'open'): face_utilities.unary_unary_inline(servicer.open),
-    ('zfs.ZfsRpc', 'read'): face_utilities.unary_unary_inline(servicer.read),
-    ('zfs.ZfsRpc', 'readdir'): face_utilities.unary_unary_inline(servicer.readdir),
-    ('zfs.ZfsRpc', 'release'): face_utilities.unary_unary_inline(servicer.release),
-    ('zfs.ZfsRpc', 'rmdir'): face_utilities.unary_unary_inline(servicer.rmdir),
-    ('zfs.ZfsRpc', 'unlink'): face_utilities.unary_unary_inline(servicer.unlink),
-    ('zfs.ZfsRpc', 'write'): face_utilities.unary_unary_inline(servicer.write),
+    ('zfs.ZfsRpc', 'Fetch'): face_utilities.unary_stream_inline(servicer.Fetch),
+    ('zfs.ZfsRpc', 'FetchDir'): face_utilities.unary_stream_inline(servicer.FetchDir),
+    ('zfs.ZfsRpc', 'GetFileStat'): face_utilities.unary_unary_inline(servicer.GetFileStat),
+    ('zfs.ZfsRpc', 'MakeDir'): face_utilities.unary_unary_inline(servicer.MakeDir),
+    ('zfs.ZfsRpc', 'RemoveDir'): face_utilities.unary_unary_inline(servicer.RemoveDir),
+    ('zfs.ZfsRpc', 'RemoveFile'): face_utilities.unary_unary_inline(servicer.RemoveFile),
+    ('zfs.ZfsRpc', 'SetFileStat'): face_utilities.unary_unary_inline(servicer.SetFileStat),
+    ('zfs.ZfsRpc', 'Store'): face_utilities.stream_unary_inline(servicer.Store),
+    ('zfs.ZfsRpc', 'TestAuth'): face_utilities.unary_unary_inline(servicer.TestAuth),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -690,53 +723,38 @@ def beta_create_ZfsRpc_stub(channel, host=None, metadata_transformer=None, pool=
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
-  import zfs_pb2
   request_serializers = {
-    ('zfs.ZfsRpc', 'create'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'flush'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'fsync'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'getattr'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'mkdir'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'open'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'read'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'readdir'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'release'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'rmdir'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'unlink'): zfs_pb2.Create.SerializeToString,
-    ('zfs.ZfsRpc', 'write'): zfs_pb2.Create.SerializeToString,
+    ('zfs.ZfsRpc', 'Fetch'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'FetchDir'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'GetFileStat'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.FileStat.SerializeToString,
+    ('zfs.ZfsRpc', 'Store'): zfs_pb2.FileDataBlock.SerializeToString,
+    ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthRequest.SerializeToString,
   }
   response_deserializers = {
-    ('zfs.ZfsRpc', 'create'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'flush'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'fsync'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'getattr'): zfs_pb2.Mystat.FromString,
-    ('zfs.ZfsRpc', 'mkdir'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'open'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'read'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'readdir'): zfs_pb2.StringArr.FromString,
-    ('zfs.ZfsRpc', 'release'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'rmdir'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'unlink'): zfs_pb2.IntRet.FromString,
-    ('zfs.ZfsRpc', 'write'): zfs_pb2.IntRet.FromString,
+    ('zfs.ZfsRpc', 'Fetch'): zfs_pb2.FileDataBlock.FromString,
+    ('zfs.ZfsRpc', 'FetchDir'): zfs_pb2.DirListBlock.FromString,
+    ('zfs.ZfsRpc', 'GetFileStat'): zfs_pb2.FileStat.FromString,
+    ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'Store'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthReply.FromString,
   }
   cardinalities = {
-    'create': cardinality.Cardinality.UNARY_UNARY,
-    'flush': cardinality.Cardinality.UNARY_UNARY,
-    'fsync': cardinality.Cardinality.UNARY_UNARY,
-    'getattr': cardinality.Cardinality.UNARY_UNARY,
-    'mkdir': cardinality.Cardinality.UNARY_UNARY,
-    'open': cardinality.Cardinality.UNARY_UNARY,
-    'read': cardinality.Cardinality.UNARY_UNARY,
-    'readdir': cardinality.Cardinality.UNARY_UNARY,
-    'release': cardinality.Cardinality.UNARY_UNARY,
-    'rmdir': cardinality.Cardinality.UNARY_UNARY,
-    'unlink': cardinality.Cardinality.UNARY_UNARY,
-    'write': cardinality.Cardinality.UNARY_UNARY,
+    'Fetch': cardinality.Cardinality.UNARY_STREAM,
+    'FetchDir': cardinality.Cardinality.UNARY_STREAM,
+    'GetFileStat': cardinality.Cardinality.UNARY_UNARY,
+    'MakeDir': cardinality.Cardinality.UNARY_UNARY,
+    'RemoveDir': cardinality.Cardinality.UNARY_UNARY,
+    'RemoveFile': cardinality.Cardinality.UNARY_UNARY,
+    'SetFileStat': cardinality.Cardinality.UNARY_UNARY,
+    'Store': cardinality.Cardinality.STREAM_UNARY,
+    'TestAuth': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
   return beta_implementations.dynamic_stub(channel, 'zfs.ZfsRpc', cardinalities, options=stub_options)

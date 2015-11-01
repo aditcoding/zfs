@@ -30,7 +30,7 @@ class ZFS(Operations):
     def rmdir(self, path):
         full_path = self._full_path(path)
         print "sending rmdir req"
-        return self.stub.rmdir(zfs_pb2.Create(path=full_path, mode=0), 10)
+        return self.stub.RemoveDir(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
 
@@ -38,22 +38,23 @@ class ZFS(Operations):
         #print path, " : Hi"
         full_path = self._full_path(path)
         print "sending mkdir req"
-        return self.stub.mkdir(zfs_pb2.Create(path=full_path, mode=mode), 10)
+        return self.stub.MakeDir(zfs_pb2.FilePath(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
 
     def create(self, path, mode, fi=None):
         # rpc call stub.create()
         full_path = self._full_path(path)
-        print "sending create req"
-        return self.stub.create(zfs_pb2.Create(path=full_path, mode=mode), 10)
+        print "sending create req" #TODO
+        os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
+        #return self.stub.create(zfs_pb2.Create(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
 
     def unlink(self, path):
         full_path = self._full_path(path)
-        print "sending unlink req"
-        return self.stub.unlink(zfs_pb2.Create(path=full_path, mode=0), 10)
+        print "sending unlink req" #TODO :
+        return self.stub.RemoveFile(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
 
@@ -61,13 +62,16 @@ class ZFS(Operations):
         # print "GETATTR: ", path
         full_path = self._full_path(path)
         print "sending getattr req"
-        st = os.lstat(full_path)
-        return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
-        #return self.stub.getattr(zfs_pb2.Create(path=full_path, mode=0), 10)
+        #st = os.lstat(full_path)
+        #return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+
+        zfs_pb2.FileStat =  self.stub.getattr(zfs_pb2.Create(path=full_path, mode=0), 10)
+        # create diccrt FileStat.st_
 
     def open(self, path, flags):
         print "sending open req"
         full_path = self._full_path(path)
+        # TODO check server
         return os.open(full_path, flags)
 
     def read(self, path, length, offset, fh):
@@ -80,26 +84,18 @@ class ZFS(Operations):
         os.lseek(fh, offset, os.SEEK_SET)
         return os.write(fh, buf)
 
-    def truncate(self, path, length, fh=None):
-        print "sending truncate req"
-        full_path = self._full_path(path)
-        with open(full_path, 'r+') as f:
-            f.truncate(length)
-
     def flush(self, path, fh):
         print "sending flush req"
         return os.fsync(fh)
 
     def release(self, path, fh):
+        # TODO call server
         print "sending release req"
         return os.close(fh)
 
     def fsync(self, path, fdatasync, fh):
         print "sending fsync req"
         return self.flush(path, fh)
-
-    # Filesystem methods
-    # ==================
 
     def readdir(self, path, fh):
         full_path = self._full_path(path)
@@ -109,9 +105,9 @@ class ZFS(Operations):
             dirents.extend(os.listdir(full_path))
         for r in dirents:
             yield r
-        #return self.stub.readdir(zfs_pb2.Create(path=full_path, mode=0), 10)
+        # TODO return self.stub.readdir(zfs_pb2.Create(path=full_path, mode=0), 10)
 
-    def access(self, path, mode):
+    '''def access(self, path, mode):
         print "sending access req"
         full_path = self._full_path(path)
         if not os.access(full_path, mode):
@@ -163,7 +159,7 @@ class ZFS(Operations):
 
     def utimens(self, path, times=None):
         print "sending utimes req"
-        return os.utime(self._full_path(path), times)
+        return os.utime(self._full_path(path), times)'''
 
 
 def main(mntPoint, mountee, remote):

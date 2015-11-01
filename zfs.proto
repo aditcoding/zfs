@@ -5,34 +5,37 @@ option objc_class_prefix = "HLW";
 package zfs;
 
 service ZfsRpc {
-  rpc create(Create) returns (IntRet) {}
-  rpc getattr(Create) returns (Mystat) {}
-  rpc mkdir(Create) returns (IntRet) {}
-  rpc rmdir(Create) returns (IntRet) {}
-  rpc read(Create) returns (IntRet) {}
-  rpc write(Create) returns (IntRet) {}
-  rpc open(Create) returns (IntRet) {}
-  rpc flush(Create) returns (IntRet) {}
-  rpc release(Create) returns (IntRet) {}
-  rpc unlink(Create) returns (IntRet) {}
-  rpc readdir(Create) returns (StringArr) {}
-  rpc fsync(Create) returns (IntRet) {}
+
+    // GetFileStat: Get the stat info for a file
+    rpc GetFileStat(FilePath) returns (FileStat) {}
+
+    // TestAuth: Test whether a file has changed (used to validate cached entries)
+    rpc TestAuth(TestAuthRequest) returns (TestAuthReply) {}
+
+    // Fetch: Fetch the contents of file
+    rpc Fetch(FilePath) returns (stream FileDataBlock) {}
+
+    // Store: Store this file on the server
+    rpc Store(stream FileDataBlock) returns (StdReply) {}
+
+    // SetFileStat: Set the stat info for a file
+    rpc SetFileStat(FileStat) returns (StdReply) {}
+
+    // ListDir: List the contents of a directory
+    rpc RemoveFile(FilePath) returns (StdReply) {}
+
+    // MakeDir: Make a new directory
+    rpc MakeDir(FilePath) returns (StdReply) {}
+
+    // RemoveDir: Remove an existing directory
+    rpc RemoveDir(FilePath) returns (StdReply) {}
+
+    // FetchDir: Fetch contents of directory
+    rpc FetchDir(FilePath) returns (stream DirListBlock) {}
+
 }
 
-message Create {
-  string path = 1;
-  int32 mode = 2;
-}
-
-message IntRet {
-  int32 message = 1;
-}
-
-message StringArr {
-  repeated string data = 1;
-}
-
-message Mystat {
+message FileStat {
     int32  st_mode = 3;     /* protection */
     int32  st_nlink = 4;    /* number of hard links */
     int32  st_uid = 5;      /* user ID of owner */
@@ -41,4 +44,42 @@ message Mystat {
     int32  st_atime = 11;    /* time of last access */
     int32  st_mtime = 12;    /* time of last modification */
     int32  st_ctime = 13;    /* time of last change */
+}
+
+message FilePath {
+    // File path and name
+    string path = 1;
+    int32 mode = 2;
+}
+
+message StdReply {
+    // 1: status: 0 if operation succeeded, 1 if there was any error.
+    // 2: error: error_message: error string describing error that occured
+    int32 status = 1;
+    string error_message = 2;
+}
+
+message TestAuthRequest {
+    // Client uses this to check if the file it has the latest version of the file it wishes to read/write
+    // For this, the Client needs to send file name and the last modification time that it has from the previous fetch.
+    // 1: filepath is the file that client is checking on with server
+    // 2: filelastmod is the time that the file was last modified on the server when the cached copy of the file was fetched last from server.
+    string filepath = 1;
+    int32 st_mtime = 2;
+}
+
+message TestAuthReply {
+    // 1: flag will be 0 if it has not been modified and 1 if it has been modified
+    int32 flag = 1;
+}
+
+
+message FileDataBlock {
+    // 1: Each block will be a Byte array of 4096 bytes containing a part of the file
+    string data_block = 1;
+}
+
+message DirListBlock {
+    // 1: Each block will be a Byte array of 4096 bytes containing a part of the directory listing
+    string dir_list_block = 1;
 }

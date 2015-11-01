@@ -42,7 +42,9 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
     print "Rm dir req received"
     print "Req path: " + request.path
     return os.rmdir(request.path)
-    #print "Status: " + ret
+    #print "Status: " + retdef release(self, path, fh):
+        #print "sending release req"#
+        #return os.close(fh)
     #return zfs_pb2.IntRet(message='Returned, %s!' % ret)
 
   def mkdir(self, request, context):
@@ -71,8 +73,8 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
   def flush(self, path, fh):
     return os.fsync(fh)
 
-  def release(self, path, fh):
-      return os.close(fh)
+  def release(self, request, context):
+      return os.close(request.fh)
 
   def fsync(self, path, fdatasync, fh):
       return self.flush(path, fh)
