@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+option objc_class_prefix = "HLW";
+
+package temp;
+
+
+message MapMessage {
+   map<string, int64> mapMsg = 1;
+}
+
+

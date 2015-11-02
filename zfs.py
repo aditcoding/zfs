@@ -7,14 +7,21 @@ import zfs_pb2
 import os
 import sys
 import errno
+import random
+import time
+
+from functools import partial
 
 from fuse import FUSE, FuseOSError, Operations
 
+BLOCK_SIZE = 4096
 
 class ZFS(Operations):
 
     def __init__(self, root, remote_host):
         self.root = root
+        if not os.listdir(root).__contains__('tmp'):
+            os.mkdir(root + "/tmp")
         channel = implementations.insecure_channel(remote_host, 50051)
         self.stub = zfs_pb2.beta_create_ZfsRpc_stub(channel)
 
@@ -29,86 +36,124 @@ class ZFS(Operations):
 
     def rmdir(self, path):
         full_path = self._full_path(path)
-        print "sending rmdir req"
-        return self.stub.RemoveDir(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+        print "sending rmdir req for:", full_path
+        self.stub.RemoveDir(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
 
     def mkdir(self, path, mode):
         #print path, " : Hi"
         full_path = self._full_path(path)
-        print "sending mkdir req"
-        return self.stub.MakeDir(zfs_pb2.FilePath(path=full_path, mode=mode), 10)
+        print "sending mkdir req for: ", full_path
+        self.stub.MakeDir(zfs_pb2.FilePath(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
 
     def create(self, path, mode, fi=None):
         # rpc call stub.create()
         full_path = self._full_path(path)
-        print "sending create req" #TODO
-        os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
+        print "sending create req for file:", full_path #TODO
+        return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
         #return self.stub.create(zfs_pb2.Create(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
 
     def unlink(self, path):
         full_path = self._full_path(path)
-        print "sending unlink req" #TODO :
-        return self.stub.RemoveFile(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+        print "sending unlink req for file:", full_path #TODO :
+        self.stub.RemoveFile(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
 
     def getattr(self, path, fh=None):
         # print "GETATTR: ", path
         full_path = self._full_path(path)
-        print "sending getattr req"
-        #st = os.lstat(full_path)
-        #return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
-
-        fs = self.stub.GetFileStat(zfs_pb2.FilePath(path=full_path, mode=0), 10)
-
-        # create diccrt FileStat.st_
-
-    def open(self, path, flags):
-        print "sending open req"
-        full_path = self._full_path(path)
-        # TODO check server
-        return os.open(full_path, flags)
-
-    def read(self, path, length, offset, fh):
-        print "sending read req"
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.read(fh, length)
-
-    def write(self, path, buf, offset, fh):
-        print "sending write req"
-        os.lseek(fh, offset, os.SEEK_SET)
-        return os.write(fh, buf)
-
-    def flush(self, path, fh):
-        print "sending flush req"
-        return os.fsync(fh)
-
-    def release(self, path, fh):
-        # TODO call server
-        print "sending release req"
-        return os.close(fh)
-
-    def fsync(self, path, fdatasync, fh):
-        print "sending fsync req"
-        return self.flush(path, fh)
+        #print "sending getattr req for: " + full_path
+        st = os.lstat(full_path)
+        return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        '''fileStat = self.stub.GetFileStat(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+        statMap = {'st_atime': fileStat.st_atime,
+                   'st_ctime': fileStat.st_ctime,
+                   'st_mtime': fileStat.st_mtime,
+                   'st_dev': fileStat.st_dev,
+                   'st_ino': fileStat.st_ino,
+                   'st_size': fileStat.st_size,
+                   'st_uid': fileStat.st_uid,
+                   'st_gid': fileStat.st_gid,
+                   'st_mode': fileStat.st_mode,
+                   'st_nlink': fileStat.st_nlink}
+        return statMap'''
 
     def readdir(self, path, fh):
         full_path = self._full_path(path)
         print "sending readdir req"
-        dirents = ['.', '..']
-        if os.path.isdir(full_path):
-            dirents.extend(os.listdir(full_path))
-        for r in dirents:
-            yield r
-        # TODO return self.stub.readdir(zfs_pb2.Create(path=full_path, mode=0), 10)
+        files = self.stub.FetchDir(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+        for f in files:
+            yield f.dir_list_block
 
-    '''def access(self, path, mode):
+    def open(self, path, flags):
+        full_path = self._full_path(path)
+        print "sending open req for file: ", full_path
+        # check server mod time
+        mtime = os.lstat(full_path).st_mtime
+        reply = self.stub.TestAuth(zfs_pb2.TestAuthRequest(path=full_path, st_mtime=mtime), 10)
+        print "reply", reply.flag
+        if reply.flag == 1:
+            print "File modified on server, fetching it again"
+            rand = random.randint(10000000, 99999999)
+            tmpFileName = self.root + "/tmp/" + str(rand)
+            fd = open(tmpFileName, 'w')
+            data_blocks = self.stub.Fetch(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+            for block in data_blocks:
+                fd.write(block.data_block)
+            fd.close()
+            os.rename(tmpFileName, full_path)
+
+        return os.open(full_path, flags)
+
+    def write(self, path, buf, offset, fh):
+        full_path = self._full_path(path)
+        print "sending write req for file: ", full_path
+        os.lseek(fh, offset, os.SEEK_SET)
+        return os.write(fh, buf)
+
+    def release(self, path, fh):
+        full_path = self._full_path(path)
+        print "sending release req for file: ", full_path
+        os.lseek(fh, 0, 0)
+        chunk = self.generate_chunk_iter(full_path)
+        self.stub.Store(chunk, 10)
+        return os.close(fh)
+
+    def generate_chunk_iter(self, full_path):
+         yield zfs_pb2.FileDataBlock(data_block=full_path)
+         fd = open(full_path)
+         with fd as reader:
+            for chunk in iter(partial(reader.read, BLOCK_SIZE), ''):
+                yield zfs_pb2.FileDataBlock(data_block=chunk)
+
+    def read(self, path, length, offset, fh):
+        full_path = self._full_path(path)
+        print "reading file: ", full_path
+        os.lseek(fh, offset, os.SEEK_SET)
+        return os.read(fh, length)
+
+    def flush(self, path, fh):
+        full_path = self._full_path(path)
+        print "sending flush req for file: ", full_path
+        return os.fsync(fh)
+
+    def fsync(self, path, fdatasync, fh):
+        full_path = self._full_path(path)
+        print "sending fsync req for file: ", full_path
+        return self.flush(path, fh)
+
+    '''def release(self, path, fh):
+        full_path = self._full_path(path)
+        print "sending release req for file: ", full_path
+        return os.close(fh)
+
+    def access(self, path, mode):
         print "sending access req"
         full_path = self._full_path(path)
         if not os.access(full_path, mode):

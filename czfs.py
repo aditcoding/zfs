@@ -24,12 +24,6 @@ class ZFS(Operations):
     # Filesystem methods
     # ==================
 
-    def access(self, path, mode):
-        print "ACCESS: ", path, mode
-        full_path = self._full_path(path)
-        if not os.access(full_path, mode):
-            raise FuseOSError(errno.EACCES)
-
     def readdir(self, path, fh):
         full_path = self._full_path(path)
 
@@ -78,17 +72,22 @@ class ZFS(Operations):
 
     def rmdir(self, path):
         full_path = self._full_path(path)
-        return os.rmdir(full_path)
+        ret =  os.rmdir(full_path)
+        print ret
+        return ret
 
     def mkdir(self, path, mode):
         print path, " : Hi"
-        return os.mkdir(self._full_path(path), mode)
+        ret =  os.mkdir(self._full_path(path), mode)
+        print ret
+        return ret
 
     def getattr(self, path, fh=None):
         #print "GETATTR: ", path
         full_path = self._full_path(path)
         st = os.lstat(full_path)
-        return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        ret =  dict((key, getattr(st, key)) for key in ('st_ino', 'st_dev', 'st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        return ret
 
     def statfs(self, path):
         full_path = self._full_path(path)

@@ -2,10 +2,13 @@ __author__ = 'adi'
 
 import time
 import os
+import traceback
 
 import zfs_pb2
+from functools import partial
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
+BLOCK_SIZE = 4096
 
 
 class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
@@ -19,15 +22,16 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
         print "create req received"
         print "Req path: " + request.path
         ret = os.open(request.path, os.O_WRONLY | os.O_CREAT, request.mode)
-        print "Status: " + ret
+        print "Status: ", ret
         return zfs_pb2.StdReply(error_message='Returned, %s!' % ret, status=0)
 
     def GetFileStat(self, request, context):
         print "Get attr req received"
         print "Req path: " + request.path
         st = os.lstat(request.path)
-        print "Status: " + st
-        # return dict((key, getattr(st, key)) for key in ('st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        #print "atime", getattr(st, 'st_atime'), "ctime", getattr(st, 'st_ctime')
+        #statMap = dict((key, getattr(st, key)) for key in ('st_ino', 'st_dev', 'st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid'))
+        #print "from map", statMap['st_atime'], statMap['st_ctime']
         return zfs_pb2.FileStat(st_atime=getattr(st, 'st_atime'),
                               st_ctime=getattr(st, 'st_ctime'),
                               st_gid=getattr(st, 'st_gid'),
@@ -35,12 +39,17 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
                               st_mtime=getattr(st, 'st_mtime'),
                               st_nlink=getattr(st, 'st_nlink'),
                               st_size=getattr(st, 'st_size'),
-                              st_uid=getattr(st, 'st_uid'))
+                              st_uid=getattr(st, 'st_uid'),
+                              st_ino=getattr(st, 'st_ino'),
+                              st_dev=getattr(st, 'st_dev'))
+        #for key in ['st_ino', 'st_dev', 'st_atime', 'st_ctime', 'st_gid', 'st_mode', 'st_mtime', 'st_nlink', 'st_size', 'st_uid']:
+            #fileStat.mapfield[key] = st.key
 
     def RemoveDir(self, request, context):
         print "Rm dir req received"
         print "Req path: " + request.path
-        return os.rmdir(request.path)
+        os.rmdir(request.path)
+        return zfs_pb2.StdReply(status=1, error_message='')
         # print "Status: " + retdef release(self, path, fh):
         # print "sending release req"#
         # return os.close(fh)
@@ -49,34 +58,63 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
     def MakeDir(self, request, context):
         print "Mk dir req received"
         print "Req path: " + request.path
-        return os.mkdir(request.path, request.mode)
+        os.mkdir(request.path, request.mode)
+        return zfs_pb2.StdReply(status=1, error_message='')
         # print "Status: " + ret
         # return zfs_pb2.IntRet(message='Returned, %s!' % ret)
 
     def RemoveFile(self, request, context):
         print "unlink req received"
-        return os.unlink(request.path)
+        os.unlink(request.path)
+        return zfs_pb2.StdReply(status=1, error_message='')
 
     def Fetch(self, request, context):
-        full_path = self._full_path(request.path)
-        return self.read(self, full_path, 1, 0, request)
+        print "read file req recvd for file: ", request.path
+        try:
+            fd = open(request.path, 'r+')
+            with fd as reader:
+                for chunk in iter(partial(reader.read, BLOCK_SIZE), ''):
+                    #print "read block", chunk
+                    yield zfs_pb2.FileDataBlock(data_block=chunk)
+        except (OSError, ValueError, IOError):
+            print "error", traceback.print_exc()
 
     def read(self, path, length, offset, fh):
         return os.lsos.read(fh, length)
 
     def Store(self, request_iterator, context):
-        print "store"
-        # TODO use write
+        print "store req received"
+        is_read = False
+        fd = 0
+        for chunk in request_iterator:
+            if not is_read:
+                print "Not read, opening file: ", chunk.data_block
+                is_read = True
+                fd = open(chunk.data_block, 'w')
+            else:
+                #print "writing chunk: ", chunk.data_block
+                fd.write(chunk.data_block)
+        fd.close()
+        return zfs_pb2.StdReply(status=1, error_message='')
 
     def FetchDir(self, request, context):
-        print "readdir req recvd"
+        print "readdir req recvd for:", request.path
         dirents = ['.', '..']
         if os.path.isdir(request.path):
             dirents.extend(os.listdir(request.path))
-        return zfs_pb2.DirListBlock(dirents)
+        for r in dirents:
+            yield zfs_pb2.DirListBlock(dir_list_block=r)
 
     def TestAuth(self, request, context):
-        print "test auth"
+        print "test auth req received for file: ", request.path
+        mtime = os.lstat(request.path).st_mtime
+        caller_mtime = request.st_mtime
+        print "mtime on server: ", mtime, "; mtime received from client: ", caller_mtime, "; server-client= ", mtime-caller_mtime
+        if mtime > caller_mtime:
+            print "file modified on server"
+            return zfs_pb2.TestAuthReply(flag=1)
+        else:
+            return zfs_pb2.TestAuthReply(flag=0)
 
     def SetFileStat(self, request, context):
         print "set file stat"
@@ -86,12 +124,15 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
         return os.write(fh, buf)
 
     def flush(self, path, fh):
+        print "flushing at server file:", path
         return os.fsync(fh)
 
-    def release(self, request, context):
-        return os.close(request.fh)
+    def release(self, path, fh):
+        print "releasing at server file: ", path
+        return os.close(fh)
 
     def fsync(self, path, fdatasync, fh):
+        print "fsyncing at server for file: ", path
         return self.flush(path, fh)
 
     def access(self, path, mode):

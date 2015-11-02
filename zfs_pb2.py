@@ -17,7 +17,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='zfs.proto',
   package='zfs',
   syntax='proto3',
-  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"\x94\x01\n\x08\x46ileStat\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x05\x12\x10\n\x08st_mtime\x18\x0c \x01(\x05\x12\x10\n\x08st_ctime\x18\r \x01(\x05\"&\n\x08\x46ilePath\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"1\n\x08StdReply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"5\n\x0fTestAuthRequest\x12\x10\n\x08\x66ilepath\x18\x01 \x01(\t\x12\x10\n\x08st_mtime\x18\x02 \x01(\x05\"\x1d\n\rTestAuthReply\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"#\n\rFileDataBlock\x12\x12\n\ndata_block\x18\x01 \x01(\t\"&\n\x0c\x44irListBlock\x12\x16\n\x0e\x64ir_list_block\x18\x01 \x01(\t2\xb6\x03\n\x06ZfsRpc\x12-\n\x0bGetFileStat\x12\r.zfs.FilePath\x1a\r.zfs.FileStat\"\x00\x12\x36\n\x08TestAuth\x12\x14.zfs.TestAuthRequest\x1a\x12.zfs.TestAuthReply\"\x00\x12.\n\x05\x46\x65tch\x12\r.zfs.FilePath\x1a\x12.zfs.FileDataBlock\"\x00\x30\x01\x12.\n\x05Store\x12\x12.zfs.FileDataBlock\x1a\r.zfs.StdReply\"\x00(\x01\x12-\n\x0bSetFileStat\x12\r.zfs.FileStat\x1a\r.zfs.StdReply\"\x00\x12,\n\nRemoveFile\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12)\n\x07MakeDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12+\n\tRemoveDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12\x30\n\x08\x46\x65tchDir\x12\r.zfs.FilePath\x1a\x11.zfs.DirListBlock\"\x00\x30\x01\x42\x06\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"\xb4\x01\n\x08\x46ileStat\x12\x0e\n\x06st_ino\x18\x01 \x01(\x05\x12\x0e\n\x06st_dev\x18\x02 \x01(\x05\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x02\x12\x10\n\x08st_mtime\x18\x0c \x01(\x02\x12\x10\n\x08st_ctime\x18\r \x01(\x02\"&\n\x08\x46ilePath\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"1\n\x08StdReply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"1\n\x0fTestAuthRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x10\n\x08st_mtime\x18\x02 \x01(\x02\"\x1d\n\rTestAuthReply\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"#\n\rFileDataBlock\x12\x12\n\ndata_block\x18\x01 \x01(\t\"&\n\x0c\x44irListBlock\x12\x16\n\x0e\x64ir_list_block\x18\x01 \x01(\t2\xb6\x03\n\x06ZfsRpc\x12-\n\x0bGetFileStat\x12\r.zfs.FilePath\x1a\r.zfs.FileStat\"\x00\x12\x36\n\x08TestAuth\x12\x14.zfs.TestAuthRequest\x1a\x12.zfs.TestAuthReply\"\x00\x12.\n\x05\x46\x65tch\x12\r.zfs.FilePath\x1a\x12.zfs.FileDataBlock\"\x00\x30\x01\x12.\n\x05Store\x12\x12.zfs.FileDataBlock\x1a\r.zfs.StdReply\"\x00(\x01\x12-\n\x0bSetFileStat\x12\r.zfs.FileStat\x1a\r.zfs.StdReply\"\x00\x12,\n\nRemoveFile\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12)\n\x07MakeDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12+\n\tRemoveDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12\x30\n\x08\x46\x65tchDir\x12\r.zfs.FilePath\x1a\x11.zfs.DirListBlock\"\x00\x30\x01\x42\x06\xa2\x02\x03HLWb\x06proto3'
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -32,57 +32,71 @@ _FILESTAT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='st_mode', full_name='zfs.FileStat.st_mode', index=0,
+      name='st_ino', full_name='zfs.FileStat.st_ino', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='st_dev', full_name='zfs.FileStat.st_dev', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='st_mode', full_name='zfs.FileStat.st_mode', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_nlink', full_name='zfs.FileStat.st_nlink', index=1,
+      name='st_nlink', full_name='zfs.FileStat.st_nlink', index=3,
       number=4, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_uid', full_name='zfs.FileStat.st_uid', index=2,
+      name='st_uid', full_name='zfs.FileStat.st_uid', index=4,
       number=5, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_gid', full_name='zfs.FileStat.st_gid', index=3,
+      name='st_gid', full_name='zfs.FileStat.st_gid', index=5,
       number=6, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_size', full_name='zfs.FileStat.st_size', index=4,
+      name='st_size', full_name='zfs.FileStat.st_size', index=6,
       number=8, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_atime', full_name='zfs.FileStat.st_atime', index=5,
-      number=11, type=5, cpp_type=1, label=1,
+      name='st_atime', full_name='zfs.FileStat.st_atime', index=7,
+      number=11, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_mtime', full_name='zfs.FileStat.st_mtime', index=6,
-      number=12, type=5, cpp_type=1, label=1,
+      name='st_mtime', full_name='zfs.FileStat.st_mtime', index=8,
+      number=12, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='st_ctime', full_name='zfs.FileStat.st_ctime', index=7,
-      number=13, type=5, cpp_type=1, label=1,
+      name='st_ctime', full_name='zfs.FileStat.st_ctime', index=9,
+      number=13, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -100,7 +114,7 @@ _FILESTAT = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=19,
-  serialized_end=167,
+  serialized_end=199,
 )
 
 
@@ -137,8 +151,8 @@ _FILEPATH = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=169,
-  serialized_end=207,
+  serialized_start=201,
+  serialized_end=239,
 )
 
 
@@ -175,8 +189,8 @@ _STDREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=209,
-  serialized_end=258,
+  serialized_start=241,
+  serialized_end=290,
 )
 
 
@@ -188,7 +202,7 @@ _TESTAUTHREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='filepath', full_name='zfs.TestAuthRequest.filepath', index=0,
+      name='path', full_name='zfs.TestAuthRequest.path', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -196,7 +210,7 @@ _TESTAUTHREQUEST = _descriptor.Descriptor(
       options=None),
     _descriptor.FieldDescriptor(
       name='st_mtime', full_name='zfs.TestAuthRequest.st_mtime', index=1,
-      number=2, type=5, cpp_type=1, label=1,
+      number=2, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -213,8 +227,8 @@ _TESTAUTHREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=260,
-  serialized_end=313,
+  serialized_start=292,
+  serialized_end=341,
 )
 
 
@@ -244,8 +258,8 @@ _TESTAUTHREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=315,
-  serialized_end=344,
+  serialized_start=343,
+  serialized_end=372,
 )
 
 
@@ -275,8 +289,8 @@ _FILEDATABLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=346,
-  serialized_end=381,
+  serialized_start=374,
+  serialized_end=409,
 )
 
 
@@ -306,8 +320,8 @@ _DIRLISTBLOCK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=383,
-  serialized_end=421,
+  serialized_start=411,
+  serialized_end=449,
 )
 
 DESCRIPTOR.message_types_by_name['FileStat'] = _FILESTAT

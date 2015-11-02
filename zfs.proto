@@ -35,21 +35,17 @@ service ZfsRpc {
 
 }
 
-/*
 message FileStat {
+    int32  st_ino = 1;
+    int32  st_dev = 2;
     int32  st_mode = 3;     /* protection */
     int32  st_nlink = 4;    /* number of hard links */
     int32  st_uid = 5;      /* user ID of owner */
     int32  st_gid = 6;      /* group ID of owner */
     int32  st_size = 8;     /* total size, in bytes */
-    int32  st_atime = 11;    /* time of last access */
-    int32  st_mtime = 12;    /* time of last modification */
-    int32  st_ctime = 13;    /* time of last change */
-}*/
-
-message FileStat {
-    string  key = 3;     /* protection */
-    int32  value = 4;    /* number of hard links */
+    float  st_atime = 11;    /* time of last access */
+    float  st_mtime = 12;    /* time of last modification */
+    float  st_ctime = 13;    /* time of last change */
 }
 
 message FilePath {
@@ -70,8 +66,8 @@ message TestAuthRequest {
     // For this, the Client needs to send file name and the last modification time that it has from the previous fetch.
     // 1: filepath is the file that client is checking on with server
     // 2: filelastmod is the time that the file was last modified on the server when the cached copy of the file was fetched last from server.
-    string filepath = 1;
-    int32 st_mtime = 2;
+    string path = 1;
+    float st_mtime = 2;
 }
 
 message TestAuthReply {
