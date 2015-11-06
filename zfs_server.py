@@ -7,6 +7,8 @@ import traceback
 import zfs_pb2
 from functools import partial
 
+import tempfile
+
 BLOCK_SIZE = 4096
 
 
@@ -83,17 +85,31 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
 
     def Store(self, request_iterator, context):
         print "store req received"
-        is_read = False
-        fd = 0
-        for chunk in request_iterator:
-            if not is_read:
-                print "Not read, opening file: ", chunk.data_block
-                is_read = True
-                fd = open(chunk.data_block, 'w')
-            else:
-                #print "writing chunk: ", chunk.data_block
-                fd.write(chunk.data_block)
-        fd.close()
+
+        with tempfile.NamedTemporaryFile(delete=False) as tmp:
+            tmp_filename = tmp.name
+            act_filename = None
+            actlen = 0
+            count = 0
+            for chunk in request_iterator:
+                if count == 0:
+                    print "Not read, opening file: ", chunk.data_block
+                    count += 1
+                    act_filename = chunk.data_block
+                if count == 1:
+                    print "Not read, opening file: ", chunk.data_block
+                    count += 1
+                    actlen = chunk.data_block
+                else:
+                    tmp.write(chunk.data_block)
+            tmp.flush()
+            os.fsync(tmp.fileno())
+        tmplen = os.stat(tmp_filename).st_size
+        print "tmplen:", tmplen, "actual len:", actlen
+        if tmplen < actlen:
+            return zfs_pb2.StdReply(status=0, error_message='not stored')
+
+        os.rename(tmp_filename, act_filename)
         return zfs_pb2.StdReply(status=1, error_message='')
 
     def FetchDir(self, request, context):
@@ -117,6 +133,10 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
 
     def SetFileStat(self, request, context):
         print "set file stat"
+
+    def Rename(self, request, context):
+        os.rename(request.old, request.new)
+        return zfs_pb2.StdReply(status=1, error_message='')
 
     def write(self, path, buf, offset, fh):
         os.lseek(fh, offset, os.SEEK_SET)
@@ -168,8 +188,6 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
     def symlink(self, name, target):
         return os.symlink(name, self._full_path(target))
 
-    def rename(self, old, new):
-        return os.rename(self._full_path(old), self._full_path(new))
 
     def link(self, target, name):
         return os.link(self._full_path(target), self._full_path(name))

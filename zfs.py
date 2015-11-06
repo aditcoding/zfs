@@ -54,11 +54,11 @@ class ZFS(Operations):
     def create(self, path, mode, fi=None):
         # rpc call stub.create()
 
-        full_path = self._full_path(path)
+        '''full_path = self._full_path(path)
         print "sending create req for file:", full_path #TODO
-        return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
+        return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)'''
 
-        #self.open(path, 1234)
+        self.open(path, 1234)
 
         #return self.stub.create(zfs_pb2.Create(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
@@ -119,20 +119,30 @@ class ZFS(Operations):
                 if f is strSplit:
                     isFound=True
             if not isFound:
-                os.open(full_path, os.O_WRONLY | os.O_CREAT, 0777)
+                return os.open(full_path, os.O_WRONLY | os.O_CREAT, 0777)
+            else:
                 flag = 1
-        print "reply", reply.flag, "flag: ", flag
-        if reply.flag == 1:
+        print "reply", reply.flag
+        if reply.flag == 1 or flag == 1:
             print "File modified on server, fetching it again"
             rand = random.randint(10000000, 99999999)
             tmpFileName = self.root + "/tmp/" + str(rand)
             fd = open(tmpFileName, 'w')
             data_blocks = self.stub.Fetch(zfs_pb2.FilePath(path=full_path, mode=0), 10)
+            actlen = 0
+            count = 0
             for block in data_blocks:
                 print block.data_block
-                fd.write(block.data_block)
+                if count == 0:
+                    count += 1
+                    actlen = block.data_block
+                else:
+                    fd.write(block.data_block)
             fd.close()
-            os.rename(tmpFileName, full_path)
+            tmplen = os.stat(tmpFileName).st_size
+            print "tmplen:", tmplen, "actual len:", actlen
+            if not tmplen < actlen:
+                os.rename(tmpFileName, full_path)
 
         return os.open(full_path, flags)
 
@@ -172,6 +182,10 @@ class ZFS(Operations):
         full_path = self._full_path(path)
         print "sending fsync req for file: ", full_path
         return self.flush(path, fh)
+
+    def rename(self, old, new):
+        print "sending rename req"
+        return self.stub.Rename(zfs_pb2.FilePath(old=self._full_path(old), new=self._full_path(new)), 10)
 
     '''def release(self, path, fh):
         full_path = self._full_path(path)
@@ -220,9 +234,6 @@ class ZFS(Operations):
         print "sending symlink req"
         return os.symlink(name, self._full_path(target))
 
-    def rename(self, old, new):
-        print "sending rename req"
-        return os.rename(self._full_path(old), self._full_path(new))
 
     def link(self, target, name):
         print "sending link req"

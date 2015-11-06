@@ -33,6 +33,8 @@ service ZfsRpc {
     // FetchDir: Fetch contents of directory
     rpc FetchDir(FilePath) returns (stream DirListBlock) {}
 
+    rpc Rename (RenameMsg) returns (StdReply) {}
+
 }
 
 message FileStat {
@@ -84,4 +86,9 @@ message FileDataBlock {
 message DirListBlock {
     // 1: Each block will be a Byte array of 4096 bytes containing a part of the directory listing
     string dir_list_block = 1;
+}
+
+message RenameMsg {
+  string old = 1;
+  string new = 2;
 }

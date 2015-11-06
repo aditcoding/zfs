@@ -17,7 +17,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='zfs.proto',
   package='zfs',
   syntax='proto3',
-  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"\xb4\x01\n\x08\x46ileStat\x12\x0e\n\x06st_ino\x18\x01 \x01(\x05\x12\x0e\n\x06st_dev\x18\x02 \x01(\x05\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x02\x12\x10\n\x08st_mtime\x18\x0c \x01(\x02\x12\x10\n\x08st_ctime\x18\r \x01(\x02\"&\n\x08\x46ilePath\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"1\n\x08StdReply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"1\n\x0fTestAuthRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x10\n\x08st_mtime\x18\x02 \x01(\x02\"\x1d\n\rTestAuthReply\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"#\n\rFileDataBlock\x12\x12\n\ndata_block\x18\x01 \x01(\t\"&\n\x0c\x44irListBlock\x12\x16\n\x0e\x64ir_list_block\x18\x01 \x01(\t2\xb6\x03\n\x06ZfsRpc\x12-\n\x0bGetFileStat\x12\r.zfs.FilePath\x1a\r.zfs.FileStat\"\x00\x12\x36\n\x08TestAuth\x12\x14.zfs.TestAuthRequest\x1a\x12.zfs.TestAuthReply\"\x00\x12.\n\x05\x46\x65tch\x12\r.zfs.FilePath\x1a\x12.zfs.FileDataBlock\"\x00\x30\x01\x12.\n\x05Store\x12\x12.zfs.FileDataBlock\x1a\r.zfs.StdReply\"\x00(\x01\x12-\n\x0bSetFileStat\x12\r.zfs.FileStat\x1a\r.zfs.StdReply\"\x00\x12,\n\nRemoveFile\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12)\n\x07MakeDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12+\n\tRemoveDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12\x30\n\x08\x46\x65tchDir\x12\r.zfs.FilePath\x1a\x11.zfs.DirListBlock\"\x00\x30\x01\x42\x06\xa2\x02\x03HLWb\x06proto3'
+  serialized_pb=b'\n\tzfs.proto\x12\x03zfs\"\xb4\x01\n\x08\x46ileStat\x12\x0e\n\x06st_ino\x18\x01 \x01(\x05\x12\x0e\n\x06st_dev\x18\x02 \x01(\x05\x12\x0f\n\x07st_mode\x18\x03 \x01(\x05\x12\x10\n\x08st_nlink\x18\x04 \x01(\x05\x12\x0e\n\x06st_uid\x18\x05 \x01(\x05\x12\x0e\n\x06st_gid\x18\x06 \x01(\x05\x12\x0f\n\x07st_size\x18\x08 \x01(\x05\x12\x10\n\x08st_atime\x18\x0b \x01(\x02\x12\x10\n\x08st_mtime\x18\x0c \x01(\x02\x12\x10\n\x08st_ctime\x18\r \x01(\x02\"&\n\x08\x46ilePath\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x0c\n\x04mode\x18\x02 \x01(\x05\"1\n\x08StdReply\x12\x0e\n\x06status\x18\x01 \x01(\x05\x12\x15\n\rerror_message\x18\x02 \x01(\t\"1\n\x0fTestAuthRequest\x12\x0c\n\x04path\x18\x01 \x01(\t\x12\x10\n\x08st_mtime\x18\x02 \x01(\x02\"\x1d\n\rTestAuthReply\x12\x0c\n\x04\x66lag\x18\x01 \x01(\x05\"#\n\rFileDataBlock\x12\x12\n\ndata_block\x18\x01 \x01(\t\"&\n\x0c\x44irListBlock\x12\x16\n\x0e\x64ir_list_block\x18\x01 \x01(\t\"%\n\tRenameMsg\x12\x0b\n\x03old\x18\x01 \x01(\t\x12\x0b\n\x03new\x18\x02 \x01(\t2\xe1\x03\n\x06ZfsRpc\x12-\n\x0bGetFileStat\x12\r.zfs.FilePath\x1a\r.zfs.FileStat\"\x00\x12\x36\n\x08TestAuth\x12\x14.zfs.TestAuthRequest\x1a\x12.zfs.TestAuthReply\"\x00\x12.\n\x05\x46\x65tch\x12\r.zfs.FilePath\x1a\x12.zfs.FileDataBlock\"\x00\x30\x01\x12.\n\x05Store\x12\x12.zfs.FileDataBlock\x1a\r.zfs.StdReply\"\x00(\x01\x12-\n\x0bSetFileStat\x12\r.zfs.FileStat\x1a\r.zfs.StdReply\"\x00\x12,\n\nRemoveFile\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12)\n\x07MakeDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12+\n\tRemoveDir\x12\r.zfs.FilePath\x1a\r.zfs.StdReply\"\x00\x12\x30\n\x08\x46\x65tchDir\x12\r.zfs.FilePath\x1a\x11.zfs.DirListBlock\"\x00\x30\x01\x12)\n\x06Rename\x12\x0e.zfs.RenameMsg\x1a\r.zfs.StdReply\"\x00\x42\x06\xa2\x02\x03HLWb\x06proto3'
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -324,6 +324,44 @@ _DIRLISTBLOCK = _descriptor.Descriptor(
   serialized_end=449,
 )
 
+
+_RENAMEMSG = _descriptor.Descriptor(
+  name='RenameMsg',
+  full_name='zfs.RenameMsg',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='old', full_name='zfs.RenameMsg.old', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='new', full_name='zfs.RenameMsg.new', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=451,
+  serialized_end=488,
+)
+
 DESCRIPTOR.message_types_by_name['FileStat'] = _FILESTAT
 DESCRIPTOR.message_types_by_name['FilePath'] = _FILEPATH
 DESCRIPTOR.message_types_by_name['StdReply'] = _STDREPLY
@@ -331,6 +369,7 @@ DESCRIPTOR.message_types_by_name['TestAuthRequest'] = _TESTAUTHREQUEST
 DESCRIPTOR.message_types_by_name['TestAuthReply'] = _TESTAUTHREPLY
 DESCRIPTOR.message_types_by_name['FileDataBlock'] = _FILEDATABLOCK
 DESCRIPTOR.message_types_by_name['DirListBlock'] = _DIRLISTBLOCK
+DESCRIPTOR.message_types_by_name['RenameMsg'] = _RENAMEMSG
 
 FileStat = _reflection.GeneratedProtocolMessageType('FileStat', (_message.Message,), dict(
   DESCRIPTOR = _FILESTAT,
@@ -381,6 +420,13 @@ DirListBlock = _reflection.GeneratedProtocolMessageType('DirListBlock', (_messag
   ))
 _sym_db.RegisterMessage(DirListBlock)
 
+RenameMsg = _reflection.GeneratedProtocolMessageType('RenameMsg', (_message.Message,), dict(
+  DESCRIPTOR = _RENAMEMSG,
+  __module__ = 'zfs_pb2'
+  # @@protoc_insertion_point(class_scope:zfs.RenameMsg)
+  ))
+_sym_db.RegisterMessage(RenameMsg)
+
 
 DESCRIPTOR.has_options = True
 DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), b'\242\002\003HLW')
@@ -419,6 +465,9 @@ class EarlyAdopterZfsRpcServicer(object):
     raise NotImplementedError()
   @abc.abstractmethod
   def FetchDir(self, request, context):
+    raise NotImplementedError()
+  @abc.abstractmethod
+  def Rename(self, request, context):
     raise NotImplementedError()
 class EarlyAdopterZfsRpcServer(object):
   """<fill me in later!>"""
@@ -468,7 +517,13 @@ class EarlyAdopterZfsRpcStub(object):
   def FetchDir(self, request):
     raise NotImplementedError()
   FetchDir.async = None
+  @abc.abstractmethod
+  def Rename(self, request):
+    raise NotImplementedError()
+  Rename.async = None
 def early_adopter_create_ZfsRpc_server(servicer, port, private_key=None, certificate_chain=None):
+  import zfs_pb2
+  import zfs_pb2
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
@@ -518,6 +573,11 @@ def early_adopter_create_ZfsRpc_server(servicer, port, private_key=None, certifi
       zfs_pb2.FilePath.FromString,
       zfs_pb2.StdReply.SerializeToString,
     ),
+    "Rename": alpha_utilities.unary_unary_service_description(
+      servicer.Rename,
+      zfs_pb2.RenameMsg.FromString,
+      zfs_pb2.StdReply.SerializeToString,
+    ),
     "SetFileStat": alpha_utilities.unary_unary_service_description(
       servicer.SetFileStat,
       zfs_pb2.FileStat.FromString,
@@ -536,6 +596,8 @@ def early_adopter_create_ZfsRpc_server(servicer, port, private_key=None, certifi
   }
   return early_adopter_implementations.server("zfs.ZfsRpc", method_service_descriptions, port, private_key=private_key, certificate_chain=certificate_chain)
 def early_adopter_create_ZfsRpc_stub(host, port, metadata_transformer=None, secure=False, root_certificates=None, private_key=None, certificate_chain=None, server_host_override=None):
+  import zfs_pb2
+  import zfs_pb2
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
@@ -577,6 +639,10 @@ def early_adopter_create_ZfsRpc_stub(host, port, metadata_transformer=None, secu
     ),
     "RemoveFile": alpha_utilities.unary_unary_invocation_description(
       zfs_pb2.FilePath.SerializeToString,
+      zfs_pb2.StdReply.FromString,
+    ),
+    "Rename": alpha_utilities.unary_unary_invocation_description(
+      zfs_pb2.RenameMsg.SerializeToString,
       zfs_pb2.StdReply.FromString,
     ),
     "SetFileStat": alpha_utilities.unary_unary_invocation_description(
@@ -624,6 +690,9 @@ class BetaZfsRpcServicer(object):
   @abc.abstractmethod
   def FetchDir(self, request, context):
     raise NotImplementedError()
+  @abc.abstractmethod
+  def Rename(self, request, context):
+    raise NotImplementedError()
 
 class BetaZfsRpcStub(object):
   """The interface to which stubs will conform."""
@@ -662,8 +731,14 @@ class BetaZfsRpcStub(object):
   @abc.abstractmethod
   def FetchDir(self, request, timeout):
     raise NotImplementedError()
+  @abc.abstractmethod
+  def Rename(self, request, timeout):
+    raise NotImplementedError()
+  Rename.future = None
 
 def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+  import zfs_pb2
+  import zfs_pb2
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
@@ -689,6 +764,7 @@ def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeo
     ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.FilePath.FromString,
     ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.FilePath.FromString,
     ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.FilePath.FromString,
+    ('zfs.ZfsRpc', 'Rename'): zfs_pb2.RenameMsg.FromString,
     ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.FileStat.FromString,
     ('zfs.ZfsRpc', 'Store'): zfs_pb2.FileDataBlock.FromString,
     ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthRequest.FromString,
@@ -700,6 +776,7 @@ def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeo
     ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.StdReply.SerializeToString,
     ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.StdReply.SerializeToString,
     ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.StdReply.SerializeToString,
+    ('zfs.ZfsRpc', 'Rename'): zfs_pb2.StdReply.SerializeToString,
     ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.StdReply.SerializeToString,
     ('zfs.ZfsRpc', 'Store'): zfs_pb2.StdReply.SerializeToString,
     ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthReply.SerializeToString,
@@ -711,6 +788,7 @@ def beta_create_ZfsRpc_server(servicer, pool=None, pool_size=None, default_timeo
     ('zfs.ZfsRpc', 'MakeDir'): face_utilities.unary_unary_inline(servicer.MakeDir),
     ('zfs.ZfsRpc', 'RemoveDir'): face_utilities.unary_unary_inline(servicer.RemoveDir),
     ('zfs.ZfsRpc', 'RemoveFile'): face_utilities.unary_unary_inline(servicer.RemoveFile),
+    ('zfs.ZfsRpc', 'Rename'): face_utilities.unary_unary_inline(servicer.Rename),
     ('zfs.ZfsRpc', 'SetFileStat'): face_utilities.unary_unary_inline(servicer.SetFileStat),
     ('zfs.ZfsRpc', 'Store'): face_utilities.stream_unary_inline(servicer.Store),
     ('zfs.ZfsRpc', 'TestAuth'): face_utilities.unary_unary_inline(servicer.TestAuth),
@@ -737,6 +815,8 @@ def beta_create_ZfsRpc_stub(channel, host=None, metadata_transformer=None, pool=
   import zfs_pb2
   import zfs_pb2
   import zfs_pb2
+  import zfs_pb2
+  import zfs_pb2
   request_serializers = {
     ('zfs.ZfsRpc', 'Fetch'): zfs_pb2.FilePath.SerializeToString,
     ('zfs.ZfsRpc', 'FetchDir'): zfs_pb2.FilePath.SerializeToString,
@@ -744,6 +824,7 @@ def beta_create_ZfsRpc_stub(channel, host=None, metadata_transformer=None, pool=
     ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.FilePath.SerializeToString,
     ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.FilePath.SerializeToString,
     ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.FilePath.SerializeToString,
+    ('zfs.ZfsRpc', 'Rename'): zfs_pb2.RenameMsg.SerializeToString,
     ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.FileStat.SerializeToString,
     ('zfs.ZfsRpc', 'Store'): zfs_pb2.FileDataBlock.SerializeToString,
     ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthRequest.SerializeToString,
@@ -755,6 +836,7 @@ def beta_create_ZfsRpc_stub(channel, host=None, metadata_transformer=None, pool=
     ('zfs.ZfsRpc', 'MakeDir'): zfs_pb2.StdReply.FromString,
     ('zfs.ZfsRpc', 'RemoveDir'): zfs_pb2.StdReply.FromString,
     ('zfs.ZfsRpc', 'RemoveFile'): zfs_pb2.StdReply.FromString,
+    ('zfs.ZfsRpc', 'Rename'): zfs_pb2.StdReply.FromString,
     ('zfs.ZfsRpc', 'SetFileStat'): zfs_pb2.StdReply.FromString,
     ('zfs.ZfsRpc', 'Store'): zfs_pb2.StdReply.FromString,
     ('zfs.ZfsRpc', 'TestAuth'): zfs_pb2.TestAuthReply.FromString,
@@ -766,6 +848,7 @@ def beta_create_ZfsRpc_stub(channel, host=None, metadata_transformer=None, pool=
     'MakeDir': cardinality.Cardinality.UNARY_UNARY,
     'RemoveDir': cardinality.Cardinality.UNARY_UNARY,
     'RemoveFile': cardinality.Cardinality.UNARY_UNARY,
+    'Rename': cardinality.Cardinality.UNARY_UNARY,
     'SetFileStat': cardinality.Cardinality.UNARY_UNARY,
     'Store': cardinality.Cardinality.STREAM_UNARY,
     'TestAuth': cardinality.Cardinality.UNARY_UNARY,
