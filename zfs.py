@@ -37,6 +37,7 @@ class ZFS(Operations):
     def rmdir(self, path):
         full_path = self._full_path(path)
         print "sending rmdir req for:", full_path
+        os.rmdir(full_path)
         self.stub.RemoveDir(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
@@ -45,15 +46,20 @@ class ZFS(Operations):
         #print path, " : Hi"
         full_path = self._full_path(path)
         print "sending mkdir req for: ", full_path
+        os.mkdir(full_path, mode)
         self.stub.MakeDir(zfs_pb2.FilePath(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
 
     def create(self, path, mode, fi=None):
         # rpc call stub.create()
+
         full_path = self._full_path(path)
         print "sending create req for file:", full_path #TODO
         return os.open(full_path, os.O_WRONLY | os.O_CREAT, mode)
+
+        #self.open(path, 1234)
+
         #return self.stub.create(zfs_pb2.Create(path=full_path, mode=mode), 10)
         #print "Response: " + response.message
         #return response.message
@@ -61,6 +67,7 @@ class ZFS(Operations):
     def unlink(self, path):
         full_path = self._full_path(path)
         print "sending unlink req for file:", full_path #TODO :
+        os.unlink(full_path)
         self.stub.RemoveFile(zfs_pb2.FilePath(path=full_path, mode=0), 10)
         #print "Response: " + response.message
         #return response.message
@@ -95,9 +102,26 @@ class ZFS(Operations):
         full_path = self._full_path(path)
         print "sending open req for file: ", full_path
         # check server mod time
-        mtime = os.lstat(full_path).st_mtime
-        reply = self.stub.TestAuth(zfs_pb2.TestAuthRequest(path=full_path, st_mtime=mtime), 10)
-        print "reply", reply.flag
+        flag = 0
+        reply = zfs_pb2.TestAuthReply()
+        if os.path.isfile(full_path):
+            print "file exists:", full_path
+            mtime = os.lstat(full_path).st_mtime
+            reply = self.stub.TestAuth(zfs_pb2.TestAuthRequest(path=full_path, st_mtime=mtime), 10)
+        else:
+            print "file doesn't exist:", full_path
+            files = self.stub.FetchDir(zfs_pb2.FilePath(path=os.getcwd(), mode=0), 10)
+            strSplit = full_path.split("/")[-1]
+            print "file name: ", strSplit
+            isFound=False
+            for f in files:
+                print "file from server:", f.dir_list_block
+                if f is strSplit:
+                    isFound=True
+            if not isFound:
+                os.open(full_path, os.O_WRONLY | os.O_CREAT, 0777)
+                flag = 1
+        print "reply", reply.flag, "flag: ", flag
         if reply.flag == 1:
             print "File modified on server, fetching it again"
             rand = random.randint(10000000, 99999999)
@@ -105,6 +129,7 @@ class ZFS(Operations):
             fd = open(tmpFileName, 'w')
             data_blocks = self.stub.Fetch(zfs_pb2.FilePath(path=full_path, mode=0), 10)
             for block in data_blocks:
+                print block.data_block
                 fd.write(block.data_block)
             fd.close()
             os.rename(tmpFileName, full_path)

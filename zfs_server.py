@@ -7,7 +7,6 @@ import traceback
 import zfs_pb2
 from functools import partial
 
-_ONE_DAY_IN_SECONDS = 60 * 60 * 24
 BLOCK_SIZE = 4096
 
 
@@ -74,7 +73,7 @@ class ZfsServer(zfs_pb2.BetaZfsRpcServicer):
             fd = open(request.path, 'r+')
             with fd as reader:
                 for chunk in iter(partial(reader.read, BLOCK_SIZE), ''):
-                    #print "read block", chunk
+                    print "read block", chunk
                     yield zfs_pb2.FileDataBlock(data_block=chunk)
         except (OSError, ValueError, IOError):
             print "error", traceback.print_exc()
@@ -191,7 +190,7 @@ def serve():
     server.start()
     try:
         while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
+            time.sleep(24*60*60)
     except KeyboardInterrupt:
         server.stop()
 
